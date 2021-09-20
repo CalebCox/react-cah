@@ -1,3 +1,6 @@
 client/node_modules
 client/.next
 client/.vscode
+api/node_modules
+api/.keystone
+api/.env
