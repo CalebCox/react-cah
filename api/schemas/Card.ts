@@ -1,4 +1,4 @@
-import { select, text } from '@keystone-next/fields';
+import { integer, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 
@@ -13,10 +13,12 @@ export const Card = list({
                 displayMode: 'segmented-control',
             },
         }),
-        description: text({
+        text: text({
             ui: {
                 displayMode: 'textarea'
             }
         }),
+        pack: integer(),
+        pick: integer()
     }
 })

@@ -4,3 +4,5 @@ client/.vscode
 api/node_modules
 api/.keystone
 api/.env
+api/seed-data/cah-cards-full.json
+api/seed-data/data.ts

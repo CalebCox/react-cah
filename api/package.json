@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "keystone-next"
+    "dev": "keystone-next",
+    "seed-data": "keystone-next --seed-data"
   },
   "author": "Caleb Hypes",
   "license": "ISC",
