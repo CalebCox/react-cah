@@ -4,12 +4,13 @@ import { resetServerContext } from "react-beautiful-dnd";
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
+    resetServerContext();
+
     const sheet = new ServerStyleSheet();
     const page = renderPage(
       (App) => (props) => sheet.collectStyles(<App {...props} />)
     );
     const styleTags = sheet.getStyleElement();
-    resetServerContext();
 
     return { ...page, styleTags };
   }
