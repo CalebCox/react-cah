@@ -1,6 +1,6 @@
-import { Paper, Typography, Container, Box } from "@mui/material";
+import { Container } from "@mui/material";
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 import CardRow from "./CardRow";
 

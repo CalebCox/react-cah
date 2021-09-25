@@ -5,7 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 export default function Card(props) {
   return (
     <Draggable draggableId={props.card.id} index={props.index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <Box
           sx={{
             display: "flex",
@@ -20,7 +20,7 @@ export default function Card(props) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <Paper elevation={3}>
+          <Paper elevation={snapshot.isDragging ? 9 : 3}>
             <Typography>{props.card.content.text}</Typography>
           </Paper>
         </Box>
