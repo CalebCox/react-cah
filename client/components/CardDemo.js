@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { Container } from "@mui/material";
 import gql from "graphql-tag";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 import CardRow from "./CardRow";
 
-const testData = {
+let testData = {
   cards: {
     "card-1": {
       id: "card-1",
@@ -70,7 +70,7 @@ const FIRST_SEVEN_WHITE = gql`
 `;
 
 export default function CardDemo() {
-  const [cardState, setCardState] = useState(testData);
+  const [cardState, setCardState] = useState({});
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -108,11 +108,52 @@ export default function CardDemo() {
     setCardState(newCardState);
   };
 
-  const { data, error, loading } = useQuery(FIRST_SEVEN_WHITE);
-  if (loading) return <p>Loading...</p>;
+  let updatedCards = {};
+  let rows = {};
+  let cardIds = [];
+
+  function cardSetup() {
+    data.allCards.map((card) => {
+      updatedCards = {
+        ...updatedCards,
+        [card.id]: {
+          id: card.id,
+          content: {
+            text: card.text,
+          },
+        },
+      };
+
+      cardIds.push(card.id);
+    });
+
+    rows = {
+      "player-hand": {
+        id: "player-hand",
+        title: "Player Hand",
+        cardIds,
+      },
+    };
+
+    setCardState({
+      cards: updatedCards,
+      rows,
+      rowOrder: ["player-hand"],
+    });
+  }
+
+  const { data, error, loading } = useQuery(FIRST_SEVEN_WHITE, {
+    onCompleted: cardSetup,
+  });
+  if (loading || !cardState.rowOrder) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(data);
+  console.log("CARD STATE: ", cardState);
+
+  // testData = {
+  //   cards: updatedCards,
+  //   ...testData,
+  // };
 
   return (
     <React.Fragment>
